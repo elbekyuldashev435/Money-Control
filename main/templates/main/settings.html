@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum=scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Settings</title>
+</head>
+<header>
+    <div>
+       {% if messages %}
+            <div class="absolute rounded border border-red-800 text-white top-[25px] right-[50px] w-[370px] h-[40px] bg-red-500 p-2">
+                {% for message in messages %}
+                    <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+       {% endif %}
+    </div>
+</header>
+<body class="bg-slate-500">
+
+    <a href="{% url 'get-home' %}" class="absolute top-[10px] left-[15px]">
+        <span class="material-icons text-4xl">
+            arrow_back
+        </span>
+    </a>
+
+    <div class="bg-slate-300 w-[350px] h-[600px] rounded-[10px] ml-[20px] mt-[50px]">
+
+        <h1 class="absolute top-[60px] left-[90px] text-4xl font-bold">Sozlamalar</h1>
+
+        <div>
+            <h1 class="absolute top-[120px] left-[120px] font-bold text-xl">Salom {{ username }} !</h1>
+            <h3 class="absolute top-[170px] left-[90px]">{{ first_name }} {{ last_name }}</h3>
+            <h3 class="absolute top-[200px] left-[90px]">{{ email }}</h3>
+        </div>
+
+        <div class="absolute bottom-[200px] left-[90px]">
+            <a href="">
+                <button class="mt-4 rounded border w-40 h-10 text-s border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                    Profilni tahrirlash
+                </button>
+            </a>
+        </div>
+
+        <a href="" class="absolute bottom-[100px] left-[35px]">
+            <span class="material-icons">
+                support_agent
+            </span>
+            <small class="absolute bottom-[6px] left-[30px]">
+                Aloqa
+            </small>
+        </a>
+    </div>
+
+    <div class="absolute rounded border border-black w-[820px] h-[500px] bg-slate-300 bottom-[140px] left-[520px]">
+        <div class="absolute left-[45px] top-[50px]">
+            <div>
+                <span class="material-icons">
+                    payments
+                </span>
+                <h1 class="font-bold text-2xl">Naqt pul hisobi</h1><br>
+            </div>
+                <h1 class="font-bold text-lg">Kimning: </h1>
+                <h1 class="text-xl">{{ username }}: {{ cash.amount }} UZS</h1><br>
+                <h1 class="font-bold text-lg">Oxirgi o'zgartirilgan vat:</h1>
+                <h1 class="text-s">{{ cash.created_at }}</h1>
+        </div>
+        {% if not cash.created_at %}
+            <a href="{% url 'cash-create' %}">
+                <button class="absolute bottom-[45px] left-[45px] rounded border w-40 h-8 text-s border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                    Hisob qo'shish
+                </button>
+            </a>
+        {% else %}
+            <a href="{% url 'cash-edit' cash.pk %}">
+                <button class="absolute bottom-[45px] left-[45px] rounded border w-40 h-8 text-s border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                    Tahrirlash
+                </button>
+            </a>
+        {% endif %}
+        <a href="" class="absolute bottom-[35px] left-[210px]">
+            <span class="material-icons text-4xl">
+                delete
+            </span>
+        </a>
+
+        <div class="absolute left-[330px] top-[50px]">
+            <div>
+                <span class="material-icons">
+                    payment
+                </span>
+                <h1 class="font-bold text-2xl">Karta hisobi</h1><br>
+            </div>
+                <h1 class="font-bold text-lg">Kimning:</h1>
+                <h1 class="text-xl">{{ username }}: {{ card.phone_number }}</h1>
+                <h1 class="text-lg">{{ card.name }}: {{ card.card_number }}</h1>
+                <h1 class="text-lg">{{ card.amount }} UZS</h1><br>
+                <h1 class="font-bold text-lg">Oxirgi o'zgartirilgan vaqt:</h1>
+                <h1 class="text-s">{{ card.created_at }}</h1>
+        </div>
+        {% if not card.created_at %}
+            <a href="{% url 'card-create' %}">
+                <button class="absolute bottom-[45px] left-[330px] rounded border w-40 h-8 text-s border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                    Hisob qo'shish
+                </button>
+            </a>
+        {% else %}
+            <a href="{% url 'card-edit' card.pk %}">
+                <button class="absolute bottom-[45px] left-[330px] rounded border w-40 h-8 text-s border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                    Tahrirlash
+                </button>
+            </a>
+        {% endif %}
+        <a href="" class="absolute bottom-[35px] left-[495px]">
+            <span class="material-icons text-4xl">
+                delete
+            </span>
+        </a>
+
+        <div class="absolute left-[590px] top-[50px]">
+            <div>
+                <span class="material-icons">
+                    attach_money
+                </span>
+                <h1 class="font-bold text-2xl">Valyuta hisobi</h1><br>
+            </div>
+                <h1 class="font-bold text-lg">Kimning:</h1>
+                <h1 class="text-xl">{{ username }}: {{ currency.amount }} $</h1><br>
+                <h1 class="font-bold text-lg">Oxirgi o'zgartirilgan vat:</h1>
+                <h1 class="text-s">{{ currency.created_at }}</h1>
+        </div>
+        {% if not currency.created_at %}
+            <a href="{% url 'currency-create' %}">
+                <button class="absolute bottom-[45px] left-[600px] rounded border w-40 h-8 text-s border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                    Hisob qo'shish
+                </button>
+            </a>
+        {% else %}
+            <a href="{% url 'currency-edit' currency.pk %}">
+                <button class="absolute bottom-[45px] left-[600px] rounded border w-40 h-8 text-s border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                    Tahrirlash
+                </button>
+            </a>
+        {% endif %}
+        <a href="" class="absolute bottom-[35px] right-[18px]">
+            <span class="material-icons text-4xl">
+                delete
+            </span>
+        </a>
+    </div>
+</body>
+</html>

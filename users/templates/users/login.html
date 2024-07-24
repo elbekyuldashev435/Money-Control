@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="bg-slate-500 flex items-center justify-center h-screen">
+    <form action="{% url 'user-login' %}" method="post" class="w-[300px] flex flex-col gap-4 bg-white p-6 rounded shadow-md">
+        {% csrf_token %}
+        <h1 class="text-2xl text-center mb-4">Tizimga kirish</h1>
+        <input type="text" class="p-2 rounded border border-slate-300" placeholder="Username" name="username" required autofocus>
+        <input type="password" class="p-2 rounded border border-slate-300" placeholder="Password" name="password" required>
+        <button type="submit" class="mt-4 p-2 rounded border border-blue-900 bg-blue-900 text-white hover:bg-blue-700 transition">Kirish</button>
+        <small class="text-center text-gray-600">
+            Akkauntingiz yo'qmi? Unda
+            <a href="{% url 'user-signup' %}" class="text-blue-900 font-bold">ro'yxatdan o'ting</a>
+        </small>
+    </form>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+
+
+<header class="relative">
+
+    <a href="{% url 'get-home' %}" class="absolute top-[10px] left-[15px]">
+        <span class="material-icons text-4xl">
+            arrow_back
+        </span>
+    </a>
+
+    <a href="{% url 'get-settings' %}" class="absolute top-[50px] left-[10px] p-0">
+        <span class="material-icons text-6xl">
+            menu
+        </span>
+    </a>
+
+    <div class="flex items-center justify-center h-full">
+        <a href="{% url 'get-wallet' %}">
+            <button class="mt-4 rounded border w-40 h-12 text-lg border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                Hisoblarim
+            </button>
+        </a>
+    </div>
+
+    <div class="absolute top-[100px] left-[660px] flex items-center justify-center h-full">
+        <h1 class="text-white text-4xl">{{ all_money }} UZS</h1>
+    </div>
+
+    <a href="" class="absolute top-[50px] right-8 p-0">
+        <span class="material-icons text-6xl">
+            receipt_long
+        </span>
+    </a>
+</header>
+
+
+<body class="bg-slate-500">
+
+    <div class="absolute bottom-[500px] left-80 p-8">
+        <a href="{% url 'income-outcome' %}">
+            <button class="mt-4 rounded border w-40 h-12 text-lg border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                Kirimlar
+            </button>
+        </a>
+    </div>
+    <div class="absolute bottom-[500px] right-80 p-8">
+        <a href="{% url 'income-outcome' %}">
+            <button class="mt-4 rounded border w-40 h-12 text-lg border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                Chiqimlar
+            </button>
+        </a>
+    </div>
+
+
+    <div class="flex  gap-[35px]">
+        <div class="bg-slate-300 w-[730px] h-[400px] rounded-[10px] ml-[20px]  p-[30px]  mt-[180px]">
+            <h1 class="font-bold text-2xl">Jami kirimlar: {{ all_incomes }} UZS</h1><br>
+
+            <h1 class="font-bold">Maosh orqali barcha kirimlar</h1>
+            <h1>Naqd pul: {{ income_salary_cash }} UZS</h1>
+            <h1>Karta: {{ income_salary_card }} UZS</h1>
+            <h1>Valyuta: {{ income_salary_currency }} USD</h1><br>
+
+            <h1 class="font-bold">Sovg'a orqali barcha kirimlar</h1>
+            <h1>Naqd pul: {{ income_gift_cash }} UZS</h1>
+            <h1>Karta: {{ income_gift_card }} UZS</h1>
+            <h1>Valyuta: {{ income_gift_currency }} USD</h1>
+
+        </div>
+
+        <div class="bg-slate-300 w-[730px] h-[400px] rounded-[10px] p-[30px] mt-[180px] ">
+            <h1 class="font-bold text-2xl">Jami chiqimlar: {{ all_outcomes }} UZS</h1>
+
+            <h1 class="font-bold">Komunal uchun barcha to'lovlar</h1>
+            <h1>Naqd pul: {{ outcome_kamunal_cash }} UZS</h1>
+            <h1>Karta: {{ outcome_kamunal_card }} UZS</h1>
+            <h1 style="margin-bottom:5px">Valyuta: {{ outcome_kamunal_currency }} USD</h1>
+
+            <h1 class="font-bold">Shaxsiy xarajat uchun barcha to'lovlar</h1>
+            <h1>Naqd pul: {{ outcome_shaxsiy_cash }} UZS</h1>
+            <h1>Karta: {{ outcome_shaxsiy_card }} UZS</h1>
+            <h1 style="margin-bottom:5px">Valyuta: {{ outcome_shaxsiy_currency }} USD</h1>
+
+            <h1 class="font-bold">Transport uchun barcha to'lovlar</h1>
+            <h1>Naqd pul: {{ outcome_transport_cash }}  UZS</h1>
+            <h1>Karta: {{ outcome_transport_card }}  UZS</h1>
+            <h1>Valyuta: {{ outcome_transport_currency }}  USD</h1>
+
+            <div class="absolute right-[100px] bottom-[133px]">
+                <h1 class="font-bold">Uyali aloqa uchun barcha to'lovlar</h1>
+                <h1>Naqd pul: {{ outcome_uyali_aloqa_cash }} UZS</h1>
+                <h1>Karta: {{ outcome_uyali_aloqa_card }} UZS</h1>
+                <h1 style="margin-bottom:5px">Valyuta: {{ outcome_uyali_aloqa_currency }} USD</h1>
+
+                <h1 class="font-bold">Internet uchun barcha to'lovlar</h1>
+                <h1>Naqd pul: {{ outcome_internet_cash }} UZS</h1>
+                <h1>Karta: {{ outcome_internet_card }} UZS</h1>
+                <h1 style="margin-bottom:5px">Valyuta: {{ outcome_internet_currency }} USD</h1>
+
+                <h1 class="font-bold">Ro'zg'or uchun barcha to'lovlar</h1>
+                <h1>Naqd pul: {{ outcome_ruzgor_cash }} UZS</h1>
+                <h1>Karta: {{ outcome_ruzgor_card }} UZS</h1>
+                <h1 style="margin-bottom:5px">Valyuta: {{ outcome_ruzgor_currency }} USD</h1>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+
+</html>

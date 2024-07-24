@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Income Detail</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+
+<header>
+    <div>
+        <a href="{% url 'get-home' %}" class="absolute top-[10px] left-[15px]">
+            <span class="material-icons text-4xl">arrow_back</span>
+        </a>
+        <a href="{% url 'get-settings' %}" class="absolute top-[50px] left-[10px] p-0">
+            <span class="material-icons text-6xl">menu</span>
+        </a>
+    </div>
+</header>
+
+<body class="bg-slate-500 flex items-center justify-center min-h-screen">
+
+    <div class="relative w-[330px] h-[650px] bg-white border border-black rounded-lg shadow-lg p-4 flex flex-col items-center justify-between">
+        <h1 class="text-3xl font-bold text-black text-center mb-4">Chek</h1><br><br>
+        <div class="text-center mb-4 flex-1">
+            <h1 class="text-lg font-semibold mb-2">Kirim turi: <span class="font-normal">{{ income.income_type }}</span></h1>
+            <h1 class="text-lg font-semibold mb-2">To'lov turi: <span class="font-normal">{{ income.payment_type }}</span></h1>
+            <h1 class="text-lg font-semibold mb-2">Summa: <span class="font-normal">{{ income.amount }}</span></h1>
+            <h1 class="text-lg font-semibold">Vaqti: <span class="font-normal">{{ income.created_at }}</span></h1>
+        </div>
+        <div class="flex justify-center mb-4">
+            <img src="data:image/png;base64,{{ qr_code_image }}" alt="QR Code" class="w-[200px] h-[200px]">
+        </div>
+    </div>
+
+</body>
+</html>

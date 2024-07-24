@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Currency</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Include Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Include Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body class="bg-slate-500">
+    <header>
+        <a href="{% url 'get-home' %}" class="absolute top-[10px] left-[15px]">
+            <span class="material-icons text-4xl">
+                arrow_back
+            </span>
+        </a>
+    </header>
+    <div class="absolute w-[400px] h-[250px] rounded border border-slate-600 bg-slate-600 top-[200px] left-[50%] transform -translate-x-1/2 p-4">
+        <h1 class="text-2xl text-center p-2">Valyuta malumotlarini tahrirlash</h1>
+        <form method="post" class="p-2 space-y-4">
+            {% csrf_token %}
+            {% if messages %}
+                <div>
+                    {% for message in messages %}
+                        <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="space-y-4">
+                {{ currency_form.as_p }}
+            </div>
+            <button type="submit" class="block w-full rounded border border-black text-white bg-gray-800 hover:text-black hover:bg-white transition py-2">
+                Save
+            </button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("input[name='created_at']", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Cash</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<header>
+  <a href="{% url 'get-settings' %}" class="absolute top-[10px] left-[15px]">
+        <span class="material-icons text-4xl">
+            arrow_back
+        </span>
+  </a>
+</header>
+<body class="bg-slate-500">
+<div class="absolute w-[400px] h-[200px] rounded border border-slate-600 bg-slate-600 top-[200px] left-[570px]">
+    <h1 class="text-2xl text-center p-2">Hamyon yaratish</h1>
+    <form method="post" class="space-y-4 p-4 flex flex-col items-center">
+        {% csrf_token %}
+        {{ cash_form.as_p }}
+        <button type="submit" class="rounded border w-20 h-8 border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">Save</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("input[name='created_at']", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+        });
+    });
+</script>
+
+</body>
+</html>

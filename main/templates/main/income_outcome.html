@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Incomes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body class="bg-slate-500">
+
+    <header>
+        <div>
+            <a href="{% url 'get-home' %}" class="absolute top-[10px] left-[15px]">
+                <span class="material-icons text-4xl">arrow_back</span>
+            </a>
+            <a href="{% url 'get-settings' %}" class="absolute top-[50px] left-[10px] p-0">
+                <span class="material-icons text-6xl">menu</span>
+            </a>
+        </div>
+        <div>
+           {% if messages %}
+                <div class="absolute rounded border border-red-800 text-white top-[12px] right-[50px] w-[370px] h-[40px] bg-red-500 p-2">
+                    {% for message in messages %}
+                        <div class="{% if message.tags %}{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+           {% endif %}
+        </div>
+    </header>
+
+    <div class="absolute rounded border border-slate-600 top-[50px] left-[230px] w-[500px] h-[650px] bg-slate-400 p-4">
+        <h1 class="font-bold text-2xl text-center">Kirimlar ro'yxati</h1>
+
+        <form method="get" class="text-center mb-4 flex justify-center space-x-2">
+            <input type="text" id="start_date_income" name="start_date_income" class="rounded border p-1 w-32" placeholder="Start Date">
+            <input type="text" id="end_date_income" name="end_date_income" class="rounded border p-1 w-32" placeholder="End Date">
+            <button type="submit" class="rounded border w-20 h-8 border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">Filter</button>
+        </form><br>
+
+        <h1 class="text-center font-bold">Maosh orqali kirirmlar: {{ all_salary }} UZS</h1>
+        {% for cash in salary_cash %}
+            <a href="{% url 'income-detail' cash.pk %}" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ cash.income_type }}--{{ cash.payment_type }}--{{ cash.amount }}--{{ cash.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for card in salary_card %}
+            <a href="{% url 'income-detail' card.pk %}" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ card.income_type }}--{{ card.payment_type }}--{{ card.amount }}--{{ card.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for currency in salary_currency %}
+            <a href="{% url 'income-detail' currency.pk %}" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ currency.income_type }}--{{ currency.payment_type }}--{{ currency.amount }}--{{ currency.created_at }}</h1>
+            </a>
+        {% endfor %}<br>
+
+        <h1 class="text-center font-bold">Premya va Sovg'a orqali kirimlar: {{ all_gift }} UZS</h1>
+        {% for cash in gift_cash %}
+            <a href="{% url 'income-detail' cash.pk %}" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ cash.income_type }}--{{ cash.payment_type }}--{{ cash.amount }}--{{ cash.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for card in gift_card %}
+            <a href="{% url 'income-detail' card.pk %}" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ card.income_type }}--{{ card.payment_type }}--{{ card.amount }}--{{ card.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for currency in gift_currency %}
+            <a href="{% url 'income-detail' currency.pk %}" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ currency.income_type }}--{{ currency.payment_type }}--{{ currency.amount }}--{{ currency.created_at }}</h1>
+            </a>
+        {% endfor %}
+
+        <div class="absolute bottom-[10px] left-[200px]">
+            {% if incomes.has_previous %}
+                <a href="?income_page={{ incomes.previous_page_number }}">
+                    <button class="rounded border w-20 h-8 border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                        Oldingi
+                    </button>
+                </a>
+            {% endif %}
+            {% if incomes.has_next %}
+                <a href="?income_page={{ incomes.next_page_number }}">
+                    <button class="rounded border w-20 h-8 border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                       Keyingi
+                    </button>
+                </a>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'create-income' %}" class="absolute bottom-[10px] right-[25px]">
+            <span class="material-icons text-4xl">add_circle_outline</span>
+        </a>
+    </div>
+
+    <div class="absolute rounded border border-slate-600 top-[50px] right-[230px] w-[500px] h-[650px] bg-slate-400 p-4">
+        <h1 class="font-bold text-2xl text-center">Chiqimlar ro'yxati</h1>
+        <form method="get" class="text-center mb-4 flex justify-center space-x-2">
+            <input type="text" id="start_date_outcome" name="start_date_outcome" class="rounded border p-1 w-32" placeholder="Start Date">
+            <input type="text" id="end_date_outcome" name="end_date_outcome" class="rounded border p-1 w-32" placeholder="End Date">
+            <button type="submit" class="rounded border w-20 h-8 border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">Filter</button>
+        </form><br>
+
+        <h1 class="text-center font-bold">Komunal to'lovlari: {{ all_kamunal }} UZS</h1>
+        {% for cash in kamunal_cash %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ cash.outcome_type }}--{{ cash.payment_type }}--{{ cash.amount }}--{{ cash.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for card in kamunal_card %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ card.outcome_type }}--{{ card.payment_type }}--{{ card.amount }}--{{ card.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for currency in kamunal_currency %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ currency.outcome_type }}--{{ currency.payment_type }}--{{ currency.amount }}--{{ currency.created_at }}</h1>
+            </a>
+        {% endfor %}<br>
+
+        <h1 class="text-center font-bold">Shaxsiy chiqim to'lovlari: {{ all_shaxsiy }} UZS</h1>
+        {% for cash in shaxsiy_cash %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ cash.outcome_type }}--{{ cash.payment_type }}--{{ cash.amount }}--{{ cash.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for card in shaxsiy_card %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ card.outcome_type }}--{{ card.payment_type }}--{{ card.amount }}--{{ card.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for currency in shaxsiy_currency %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ currency.outcome_type }}--{{ currency.payment_type }}--{{ currency.amount }}--{{ currency.created_at }}</h1>
+            </a>
+        {% endfor %}<br>
+
+        <h1 class="text-center font-bold">Transport to'lovlari: {{ all_transport }} UZS</h1>
+        {% for cash in transport_cash %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ cash.outcome_type }}--{{ cash.payment_type }}--{{ cash.amount }}--{{ cash.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for card in transport_card %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ card.outcome_type }}--{{ card.payment_type }}--{{ card.amount }}--{{ card.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for currency in transport_currency %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ currency.outcome_type }}--{{ currency.payment_type }}--{{ currency.amount }}--{{ currency.created_at }}</h1>
+            </a>
+        {% endfor %}<br>
+
+        <h1 class="text-center font-bold">Uyali Aloqa to'lovlari: {{ all_uyali_aloqa }} UZS</h1>
+        {% for cash in uyali_aloqa_cash %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ cash.outcome_type }}--{{ cash.payment_type }}--{{ cash.amount }}--{{ cash.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for card in uyali_aloqa_card %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ card.outcome_type }}--{{ card.payment_type }}--{{ card.amount }}--{{ card.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for currency in uyali_aloqa_currency %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ currency.outcome_type }}--{{ currency.payment_type }}--{{ currency.amount }}--{{ currency.created_at }}</h1>
+            </a>
+        {% endfor %}<br>
+
+        <h1 class="text-center font-bold">Internet to'lovlari: {{ all_internet }} UZS</h1>
+        {% for cash in internet_cash %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ cash.outcome_type }}--{{ cash.payment_type }}--{{ cash.amount }}--{{ cash.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for card in internet_card %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ card.outcome_type }}--{{ card.payment_type }}--{{ card.amount }}--{{ card.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for currency in internet_currency %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ currency.outcome_type }}--{{ currency.payment_type }}--{{ currency.amount }}--{{ currency.created_at }}</h1>
+            </a>
+        {% endfor %}<br>
+
+        <h1 class="text-center font-bold">Ro'zg'or uchun to'lovlar: {{ all_ruzgor }} UZS</h1>
+        {% for cash in ruzgor_cash %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ cash.outcome_type }}--{{ cash.payment_type }}--{{ cash.amount }}--{{ cash.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for card in ruzgor_card %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ card.outcome_type }}--{{ card.payment_type }}--{{ card.amount }}--{{ card.created_at }}</h1>
+            </a>
+        {% endfor %}
+        {% for currency in ruzgor_currency %}
+            <a href="" class="block hover:text-white transition">
+                <h1 class="text-s text-center">{{ currency.outcome_type }}--{{ currency.payment_type }}--{{ currency.amount }}--{{ currency.created_at }}</h1>
+            </a>
+        {% endfor %}<br>
+
+        <div class="absolute bottom-[10px] left-[200px]">
+            {% if outcomes.has_previous %}
+                <a href="?outcome_page={{ outcomes.previous_page_number }}">
+                    <button class="rounded border w-20 h-8 border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                        Oldingi
+                    </button>
+                </a>
+            {% endif %}
+            {% if outcomes.has_next %}
+                <a href="?outcome_page={{ outcomes.next_page_number }}">
+                    <button class="rounded border w-20 h-8 border-black text-white bg-gray-800 hover:text-black hover:bg-white transition">
+                        Keyingi
+                    </button>
+                </a>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'create-outcome' %}" class="absolute bottom-[10px] right-[25px]">
+            <span class="material-icons text-4xl">add_circle_outline</span>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("#start_date_income", {
+                enableTime: false,
+                dateFormat: "Y-m-d",
+            });
+            flatpickr("#end_date_income", {
+                enableTime: false,
+                dateFormat: "Y-m-d",
+            });
+            flatpickr("#start_date_outcome", {
+                enableTime: false,
+                dateFormat: "Y-m-d",
+            });
+            flatpickr("#end_date_outcome", {
+                enableTime: false,
+                dateFormat: "Y-m-d",
+            });
+        });
+    </script>
+</body>
+</html>

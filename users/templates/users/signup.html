@@ -1,0 +1,27 @@
+
+<head>
+    <meta charset="UTF-8">
+    <title>Base</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+
+<title>Register Page</title>
+<body class="bg-slate-500">
+    <form action="{% url 'user-signup' %}" method="post" class="w-[300px] flex flex-col gap-2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        {% csrf_token %}
+        <h1 class="text-2xl text-center">Ro'yxatdan o'tish</h1>
+        <input type="text" class="p-2 rounded border border-slate-500" placeholder="Username" name="username" required autofocus>
+        <input type="text" class="p-2 rounded border border-slate-500" placeholder="E-mail" name="email">
+        <input type="text" class="p-2 rounded border border-slate-500" placeholder="Ism" name="first_name">
+        <input type="text" class="p-2 rounded border border-slate-500" placeholder="Familiya" name="last_name">
+        <input type="password" class="p-2 rounded border border-slate-500" placeholder="Parol" name="password1" required>
+        <input type="password" class="p-2 rounded border border-slate-500" placeholder="Parol tasdiqlash" name="password2" required>
+        <button class="mt-4 p-2 rounded border border-blue-900 bg-blue-900 text-white hover:bg-blue-700 transition">Yuborish</button>
+        <small class="text-center">
+            Akkauntingiz bormi?
+            <a href="{% url 'user-login' %}" class="text-blue-900 font-bold">kirish</a>
+        </small>
+    </form>
+</body>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Income</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body class="bg-slate-500 flex items-center justify-center min-h-screen">
+    <header class="absolute top-5 left-5">
+        <a href="{% url 'income-outcome' %}" class="text-gray-800 text-3xl hover:text-gray-600 transition">
+            <span class="material-icons">
+                arrow_back
+            </span>
+        </a>
+    </header>
+    <div class="w-full max-w-md p-6 bg-slate-400 border border-slate-600 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-semibold text-center mb-6">Create Income</h1>
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            <div class="space-y-4">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="w-full bg-slate-700 text-black py-2 rounded-lg shadow hover:bg-white transition">
+                Save
+            </button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            flatpickr("input[name='created_at']", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+            });
+        });
+    </script>
+</body>
+</html>

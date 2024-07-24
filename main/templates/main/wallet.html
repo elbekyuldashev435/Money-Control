@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wallet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+</head>
+
+<header class="relative">
+    <a href="{% url 'get-home' %}" class="absolute top-[10px] left-[15px]">
+        <span class="material-icons text-4xl">
+            arrow_back
+        </span>
+    </a>
+
+    <a href="{% url 'get-settings' %}" class="absolute top-[50px] left-[10px] p-0">
+        <span class="material-icons text-6xl">
+            menu
+        </span>
+    </a>
+</header>
+
+<body class="bg-slate-500">
+
+    <div class="absolute rounded border border-slate-500 text-lg font-bold text-center bottom-[450px] left-[330px] w-[200px] h-[30px] bg-slate-300">
+        <h1>Naqt pul miqdori</h1>
+    </div>
+    <div class="absolute bottom-[360px] left-[340px] p-8">
+        <h1 class="text-white text-xl">{{ cash }} UZS</h1>
+    </div>
+    <div class="absolute bottom-[320px] left-80 p-8">
+        {% if cash_pk == 0 %}
+            <a href="{% url 'cash-create' %}">
+                <button class="mt-4 rounded border w-40 h-8 text-lg text-white border-black bg-gray-800 hover:text-black hover:bg-white transition">
+                    Yaratish
+                </button>
+            </a>
+        {% else %}
+            <a href="{% url 'cash-edit' cash_pk %}">
+                <button class="mt-4 rounded border w-40 h-8 text-lg text-white border-black bg-gray-800 hover:text-black hover:bg-white transition">
+                    Tahrirlash
+                </button>
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="absolute rounded border border-slate-500 text-lg font-bold text-center bottom-[450px] left-[668px] w-[200px] h-[30px] bg-slate-300">
+        <h1>Karta miqdori</h1>
+    </div>
+    <div class="absolute bottom-[360px] left-[675px] p-8">
+        <h1 class="text-white text-xl">{{ card }} UZS</h1>
+    </div>
+    <div class="absolute bottom-[320px] left-[655px] p-8">
+        {% if card_pk == 0 %}
+            <a href="{% url 'card-create' %}">
+                <button class="mt-4 rounded border w-40 h-8 text-lg text-white border-black bg-gray-800 hover:text-black hover:bg-white transition">
+                    Yaratish
+                </button>
+            </a>
+        {% else %}
+            <a href="{% url 'card-edit' card_pk %}">
+                <button class="mt-4 rounded border w-40 h-8 text-lg text-white border-black bg-gray-800 hover:text-black hover:bg-white transition">
+                    Tahrirlash
+                </button>
+            </a>
+        {% endif %}
+    </div>
+
+    <div class="absolute rounded border border-slate-500 text-lg font-bold text-center bottom-[450px] right-[330px] w-[200px] h-[30px] bg-slate-300">
+        <h1>Valyuta miqdori</h1>
+    </div>
+    <div class="absolute bottom-[360px] right-[390px] p-8">
+        <h1 class="text-white text-xl">{{ currency }} USD</h1>
+    </div>
+    <div class="absolute bottom-[320px] right-80 p-8">
+        {% if currency_pk == 0 %}
+            <a href="{% url 'currency-create' %}">
+                <button class="mt-4 rounded border w-40 h-8 text-lg text-white border-black bg-gray-800 hover:text-black hover:bg-white transition">
+                    Yaratish
+                </button>
+            </a>
+        {% else %}
+            <a href="{% url 'currency-edit' currency_pk %}">
+                <button class="mt-4 rounded border w-40 h-8 text-lg text-white border-black bg-gray-800 hover:text-black hover:bg-white transition">
+                    Tahrirlash
+                </button>
+            </a>
+        {% endif %}
+    </div>
+
+</body>
